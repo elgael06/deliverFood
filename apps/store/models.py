@@ -2,7 +2,6 @@ from django.db import models
 from ..customers.models import Customer
 # Create your models here.
 
-    
 class ItemStore(models.Model):
     price        = models.FloatField()
     costo        = models.FloatField()
