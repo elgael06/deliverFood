@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'x1mul9xsa1srttw7h7%rewq%=j$+$@!fs0xioyey&f4=o8clie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,12 +126,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if os.getcwd() == '/app':
-    import dj_database_url
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
+# if os.getcwd() == '/app':
+#     import dj_database_url
+#     db_from_env = dj_database_url.config(conn_max_age=500)
+#     DATABASES['default'].update(db_from_env)
 
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    ALLOWED_HOSTS = ['deliverFood.herokuapp.com']
-    DEBUG = True
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#     ALLOWED_HOSTS = ['deliverFood.herokuapp.com']
+#     DEBUG = True
+#     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
