@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
+import Routes from './routes';
+
 
 function App() {
   return (
-    <div >
-      <h3>esta sera la App para entrega de comida.</h3>
-    </div>
+    <Routes />
   );
 }
 

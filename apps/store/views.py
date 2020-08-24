@@ -15,8 +15,9 @@ def index(request):
 
 @api_view(['GET', 'POST'])
 def item_store_list(request):
-
+    print('productos')
     if request.method == 'GET':
+        print('obtener productos')
         data = []
         nextPage = 1
         previousPage = 1
@@ -45,10 +46,15 @@ def item_store_list(request):
         })
     
     elif request.method == 'POST':
+        print('insertar producto')
         serializer = serializers.ItemStoreSerializer(data=request.data)
+        print('entro')
         if serializer.is_valid():
+            print('is valid')
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        print('not valid')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET','PUT','DELETE'])

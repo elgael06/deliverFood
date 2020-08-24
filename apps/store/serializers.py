@@ -4,7 +4,7 @@ from .models import ItemStore,Order,OrderStore
 class ItemStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemStore
-        fields = ('pk','price', 'costo', 'cantidad', 'ingredientes','preparacion')
+        fields = ('pk','price', 'costo', 'cantidad','nombre','ingredientes','preparacion','image')
         
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,5 +14,5 @@ class OrderSerializer(serializers.ModelSerializer):
 class OrderStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderStore
-        fields = ('pk','idOrder','idItem')        
+        fields = ('pk','idOrder','idItem','cantidad','total')        
         
