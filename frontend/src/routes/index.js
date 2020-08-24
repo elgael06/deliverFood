@@ -12,11 +12,12 @@ const Routes = ()=>{
 
     return(<Router>
         <Switch>
-            <Route path='/' component={HomeApp} />
-            <Route path='/add' component={Products} />
-            <Route path='/edit/?id' component={Products} />            
+            <Route path='/' exact component={HomeApp} />
+            <Route path='/add' exact component={Products} />
+            <Route path='/edit/:id' exact component={Products} />            
             
-            <Route path='/about' component={AboutApp} />
+            <Route path='/about' exact component={AboutApp} />
+            <Route path='/*' component={()=><h3>Pagina no encontrada !!!</h3>} />
         </Switch>
     </Router>);
 } 
