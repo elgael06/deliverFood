@@ -13,13 +13,16 @@ const HomeApp =()=>{
 
     useEffect(()=>{
         console.log('home')
-        dispatch(fetchProductos());
+        list.length==0 && obtenerProductos();
     },[]);
+    const obtenerProductos =()=>{
+        dispatch(fetchProductos());        
+    }
 
     return(<LayoutApp>
        <h3>home app</h3>
        <br/>
-       <Table>
+       <Table style={{width:'100%'}}>
            <TableHead>
                <TableRow >
                    <TableCell> id </TableCell>

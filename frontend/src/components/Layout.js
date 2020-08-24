@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './layout.css';
 
 const LayoutApp = ({children})=>{
 
-    return(<div>
+    return(<div className='app-container'>
         <nav className='uk-navbar-container'>
             <div className='uk-navbar-left'>
                 <ul className='uk-navbar-nav'>
-                    <li><Link to='/'> Home </Link></li>
+                    <Link to='/'> Home </Link>
+                    <Link to='/about'> About </Link>
                 </ul>
             </div>
         </nav>
         <div className='uk-section'>
-            <div className='uk-container'>
                 {children}
-            </div>
         </div>
     </div>);
 }

@@ -1,10 +1,11 @@
 import React from 'react';
+import LayoutApp from '../components/Layout';
 
 const AboutApp = ()=>{
 
-    return(<div>
+    return(<LayoutApp>
         <h3>about</h3>
-    </div>);
+    </LayoutApp>);
 }
 
 export default AboutApp;
