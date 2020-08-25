@@ -7,11 +7,14 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import ItemStore
 from . import serializers
+from django.template import loader
 
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the store index.")
+    template = loader.get_template("../../app/frontend/public/index.html")
+    return HttpResponse(template.render())
+    # return HttpResponse("Hello, world. You're at the store index.")
 
 @api_view(['GET', 'POST'])
 def item_store_list(request):
