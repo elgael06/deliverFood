@@ -70,7 +70,6 @@ const Products = () =>{
                 label='imagen'
                 value={selected['image']}
             />
-            <Button color='secondary' variant='text'>Cargar imagen</Button>
             <br />
             <Button color='primary' variant='contained'>guardar cambios</Button>
         </div> : null}
