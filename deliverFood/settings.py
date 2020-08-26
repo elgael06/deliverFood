@@ -68,8 +68,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd8j9emsd7gj2ap',
+        'USER': 'rmzmxdpdwaceup',
+        'PASSWORD': '8a6c464d28d66a97bd888e4966b47cdc15b704c87f381e39de750e4f85d84cc7',
+        'HOST': 'ec2-54-243-67-199.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 

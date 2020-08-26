@@ -43,5 +43,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "api":{
+    "prod":"https://rocky-harbor-12898.herokuapp.com",
+    "dev":"http://localhost:8000"
   }
 }
