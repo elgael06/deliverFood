@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductos } from '../actions/products';
 import LayoutApp from '../components/Layout';
-import Table,{ TableHead, TableRow, TableCell,TableBody } from 'react-uikit/lib/components/Table';
-import Button from 'react-uikit/lib/components/Button';
 import { useHistory } from 'react-router-dom';
+
+import Table from '@material-ui/core/Table';
+import { TableHead, TableRow, TableCell, TableBody, Button, TableFooter, TablePagination, Fab, IconButton, MenuList, MenuItem } from '@material-ui/core';
+import {Add, Edit, Delete} from '@material-ui/icons';
 
 const HomeApp =()=>{
     const {list=[],page=1} = useSelector(state=>state.productsStore);
@@ -22,14 +24,14 @@ const HomeApp =()=>{
     return(<LayoutApp>
        <h3>home app</h3>
        <br/>
-       <Table style={{width:'100%'}}>
+       <Table >
            <TableHead>
                <TableRow >
-                   <TableCell> id </TableCell>
-                   <TableCell> nombre </TableCell>
-                   <TableCell> consto </TableCell>
-                   <TableCell> precio </TableCell>
-                   <TableCell>Actions</TableCell>
+                   <TableCell> # </TableCell>
+                   <TableCell> NOMBRE </TableCell>
+                   <TableCell> COSTO </TableCell>
+                   <TableCell> PRECIO </TableCell>
+                   <TableCell>ACCIONES</TableCell>
                </TableRow>
            </TableHead>
            <TableBody>
@@ -39,11 +41,41 @@ const HomeApp =()=>{
                        <TableCell>{e.nombre}</TableCell>
                        <TableCell>{e.costo}</TableCell>
                        <TableCell>{e.price}</TableCell>
-                       <TableCell><Button onClick={()=>history.push(`edit/${e.pk}`)}>Editar</Button></TableCell>
+                       <TableCell>
+                           <IconButton onClick={()=>history.push(`edit/${e.pk}`)}>
+                                <Edit /> 
+                            </IconButton>
+                           <IconButton disabled onClick={()=>history.push(`edit/${e.pk}`)}>
+                                <Delete color='red' /> 
+                            </IconButton>
+                        </TableCell>
                    </TableRow>);
                })}
            </TableBody>
+           <TableFooter>
+                <TablePagination 
+                    page={page}
+                    count={list.length}
+                    rowsPerPage={15}
+                    color='primary'
+                    rowsPerPageOptions={{
+
+                    }}
+                />
+           </TableFooter>
        </Table>
+       <Fab
+            color='primary'
+            href='/add'
+            style={{
+                position:'absolute',
+                float:'right',
+                right:10,
+                bottom:10
+            }}
+       >
+           <Add  />
+       </Fab>
     </LayoutApp>);
 }
 

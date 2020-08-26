@@ -12,6 +12,7 @@ body{
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    background:#f0f7f0 ;
 }
 .uk-navbar-container{
     width: 100%;
@@ -41,4 +42,5 @@ body{
     padding:10px;
     border-radius: 5px;
     box-shadow: 3px 3px #dcdada50;
+    background:#FFF ;
 }
