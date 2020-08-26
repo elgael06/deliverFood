@@ -14,24 +14,39 @@ body{
     flex-direction: column;
     background:#f0f7f0 ;
 }
-.uk-navbar-container{
+.navbar-container{
     width: 100%;
     height: 55px;
     background-color: #EEE;
     color: #bdbdbd !important;
     border-bottom: 3px solid #bdbdbd;
     box-shadow: 0px 2px #dcdada50 ;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
-.uk-navbar-nav >a{
+.title-app{
+    padding: 0 10px;
+}
+.navbar-left{
+    align-items: flex-start;
+}
+.navbar-rigth{
+    padding: 0 10px;
+    position: absolute;
+    right: 0px;
+}
+
+.navbar-nav-list > a{
     margin-left: 10px;
     text-decoration-line: none;
     text-decoration-color: #bdbdbd;
     color: #919999;
 }
-.uk-navbar-nav >a:hover{
+.navbar-nav >a:hover{
     color: #c4caca;    
 }
-.uk-section{
+.section{
     position: absolute;
     top:50px;
     bottom: 30px;
@@ -43,4 +58,5 @@ body{
     border-radius: 5px;
     box-shadow: 3px 3px #dcdada50;
     background:#FFF ;
+    overflow: auto;
 }

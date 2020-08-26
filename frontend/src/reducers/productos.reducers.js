@@ -10,12 +10,12 @@ const productsStore = (state=initialProducts,actions) =>{
         case 'ADD_PRODUCTS':
             return {
                 ...state,
-                list:actions.value
+                list:actions.value,
+                page:actions.page,
             }
         case 'SELECT_PRODUCT':
             return {
                 ...state,
-                page:actions.page,
                 selected:actions.value
             }    
         default:
