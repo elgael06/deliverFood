@@ -18,5 +18,6 @@ from django.urls import path,include
 urlpatterns = [
     path('',include('apps.urls')),#this the index app
     path('api/store/',include('apps.store.urls')),# this the store api.
-    path('api/customers/',include('apps.customers.urls'))# this the customers api.
+    path('api/customers/',include('apps.customers.urls')),# this the customers api.
+    path('api/sesion/',include('apps.sesion.urls')),
 ]

@@ -1,32 +1,32 @@
 from rest_framework import serializers
-from .models import usuarioSesion,passwordUsuario,registreSesion,accesoMenus,accesoSubMenu,accesoUsuario
+from . import models
+ 
+class passwordUsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model: models.passwordUsuario
+        fields: ('pk','password','idUsuario','createdAt','modificAt')
 
 class usuarioSesionSerializer(serializers.ModelSerializer):
     class Meta:
-        model: usuarioSesion
-        fields: ('pk','nombre','apeido','apodo','email')
-        
-class passwordUsuarioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model: passwordUsuario
-        fields: ('pk','password','idUsuario','createdAt','modificAt')
-
+        model  : models.usuarioSesion
+        fields : ['pk','nombre','apeido','apodo','email']        
+       
 class registreSesionSerializer(serializers.ModelSerializer):
     class Meta:
-        model: registreSesion
+        model: models.registreSesion
         fields: ('pk','idUsuario','createdAt','token','status')
 
 class accesoMenusSerializer(serializers.ModelSerializer):
     class Meta:
-        model: accesoMenus
+        model: models.accesoMenus
         fields: ('pk','nombre','icon')
 
 class accesoSubMenuSerializer(serializers.ModelSerializer):
     class Meta:
-        model: accesoSubMenu
+        model: models.accesoSubMenu
         fields: ('pk','idMenu','nombre','uri')
 
 class accesoUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model: accesoUsuario
+        model: models.accesoUsuario
         fields: ('pk','idUsuario','idAcceso','acceso')

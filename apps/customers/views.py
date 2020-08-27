@@ -48,7 +48,7 @@ def customers_list(request):
         })
 
     elif request.method == 'POST':
-        serializer = serializers.CustomerSerializer(data=request.data)
+        serializer = serializers.CustomerSerializer(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
