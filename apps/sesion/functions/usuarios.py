@@ -49,18 +49,22 @@ class usuarios:
         
         if not res.exists():
             try:
+                
                 nuevo = usuarioSesion(
                     nombre=nombre,
                     apeido=apeido,
                     apodo=apodo,
                     email=email
                     )
+                
                 print(nuevo.email)
                 nuevo.save()
                 print('guardado')
+                
                 passSerial = passwordUsuario(idUsuario=nuevo.pk,password='123456789')
                 passSerial.save()
                 print(passSerial.pk)
+                
                 return {
                     'email':nuevo.email,
                     'apeido':nuevo.apeido,
@@ -68,6 +72,8 @@ class usuarios:
                     'nombre':nuevo.nombre,
                     'id':nuevo.pk
                     }
+                
             except Exception as err:
                 return {'error':format(err)}
+            
         return {'error':'el correo ya existe.'}

@@ -47,6 +47,23 @@ class login:
             return ({'message':'la Contraseña no coinside.','sesion':False})
         except Exception as err:
             return {'error':format(err)}
-    def updatePass(self):
-        pass
+        
+    def updatePass(self,newPassword):
+        try:            
+            # pylint: disable=maybe-no-member
+            usuario = usuarioSesion.objects.filter(email=self._email)
+            if usuario.exists():
+                sesion = usuario.first()
+                log = passwordUsuario.objects.filter(idUsuario=sesion.pk, password=self._password)
+                
+                if log.exists():
+                    log.update(password=newPassword)
+                    return {'messaje':'password actualizado.','status':True}
+                
+                return  {'messaje':'error al actualizar el password!','status':False}
+            
+            return {'messaje':'error el usuario no existe.','status':False}
+        
+        except Exception as err:            
+            return {'error':format(err),'status':False}
     

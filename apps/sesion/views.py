@@ -58,7 +58,17 @@ def actions_usuario(request,pk):
 def Login_sesion(request):
     datos = request.data
     print(datos)
-    sesion = login(email=datos['email'],password=datos['password'])
-    res = sesion.check()
+    sesion  = login(email=datos['email'],password=datos['password'])
+    res     = sesion.check()
     return Response(res)
-  
+
+@api_view(['PUT'])
+def update_password(request):
+    datos = request.data
+    print(datos)
+    
+    sesion  = login(email=datos['email'],password=datos['password'])
+    res     = sesion.updatePass(newPassword=datos['newPassword'])
+    
+    return Response(res)
+    
