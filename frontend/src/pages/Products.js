@@ -12,7 +12,10 @@ const Products = () =>{
 
     useEffect(()=>{
         console.log('productos!!!',id);
-        id && obtenerProducto()
+        id ? obtenerProducto() : dispatch(d=>{
+                console.log('loading');
+                d({type:'LOADING',value:false})
+            });
     },[]);
 
     const obtenerProducto = async ()=>{

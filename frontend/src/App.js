@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import './App.css';
 import Routes from './routes';
 import RoutesLogout from './routes/RoutesLogout';
@@ -8,9 +8,14 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const {loadding=true} = useSelector(state=>state.guiStore);
+  const {sesion=false} = useSelector(state=>state.sesion);
+
+  useEffect(()=>{
+    console.log('sesion',sesion);
+  },[sesion]);
 
   return <Fragment>
-    {true ?<Routes /> : <RoutesLogout />}
+    {sesion ?<Routes /> : <RoutesLogout />}
     {loadding && <Loading /> }
   </Fragment> ;
 }

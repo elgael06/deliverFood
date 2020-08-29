@@ -1,10 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './layout.css';
 import { Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { removeSesion } from '../actions/sesion';
 
 const LayoutApp = ({children})=>{
+    const dispatch = useDispatch();
+    const history = useHistory();
 
+    const logOut = ()=>{
+        dispatch(removeSesion())
+        history.push('/login')
+    }
     return(<div className='app-container'>
         <nav className='navbar-container'>
             <section className='title-app'>Deliver food</section>
@@ -16,7 +24,7 @@ const LayoutApp = ({children})=>{
             </div>
 
         <div className='navbar-rigth'>
-                <Button>Login</Button>
+                <Button onClick={logOut}>Logout</Button>
             </div>
         </nav>
         <div className='section'>

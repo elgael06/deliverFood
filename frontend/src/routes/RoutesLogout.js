@@ -2,20 +2,17 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
-import HomeApp from "../pages/Home";
-import AboutApp from "../pages/About";
-import Products from "../pages/Products";
+import Login from "../pages/login";
 
 const RoutesLogout = ()=>{
 
     return(<Router>
         <Switch>
-            <Route path='/' exact component={()=>{
-                return <div>Login</div>
-            }} />
-            <Route path='/*' component={()=><h3>Pagina no encontrada !!!</h3>} />
+            <Route path='/login' exact component={Login} />
+            <Route path='/*' component={()=><Redirect to='/login' />} />
         </Switch>
     </Router>);
 } 

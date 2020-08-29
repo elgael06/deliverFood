@@ -2,7 +2,8 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import HomeApp from "../pages/Home";
 import AboutApp from "../pages/About";
@@ -12,6 +13,7 @@ const Routes = ()=>{
 
     return(<Router>
         <Switch>
+            <Route path='/login' component={()=><Redirect to='/' />} />
             <Route path='/' exact component={HomeApp} />
             <Route path='/add' exact component={Products} />
             <Route path='/edit/:id' exact component={Products} />            
