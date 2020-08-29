@@ -8,8 +8,9 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from . import serializers
-from .functions.usuarios import usuarios 
-from .functions.usuarioId import usuarioId
+from .functions.usuarios    import usuarios 
+from .functions.usuarioId   import usuarioId
+from .functions.login       import login
 
 # Create your views here.
 
@@ -53,3 +54,11 @@ def actions_usuario(request,pk):
     else:
         return Response({'message':'no se encontro el metodo.'})
     
+@api_view(['POST'])
+def Login_sesion(request):
+    datos = request.data
+    print(datos)
+    sesion = login(email=datos['email'],password=datos['password'])
+    res = sesion.check()
+    return Response(res)
+  
