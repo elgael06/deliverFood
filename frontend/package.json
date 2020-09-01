@@ -46,7 +46,7 @@
     ]
   },
   "api": {
-    "prod": "https://rocky-harbor-12898.herokuapp.com",
+    "prod": "https://api-deliver-web.mya-app.tech/",
     "dev": "http://localhost:8000"
   }
 }
