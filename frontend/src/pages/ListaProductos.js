@@ -25,7 +25,7 @@ const ListaProductos =()=>{
     }
 
     return(<LayoutApp title='Productos.'>
-       <List style={{height:390,overflow:'auto'}}>
+       <List style={{height:'80%',overflow:'auto'}}>
            {
                list.map(item=>[<ListItem key={item.pk} >
                    <ListItemAvatar>

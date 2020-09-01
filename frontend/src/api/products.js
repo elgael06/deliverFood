@@ -8,8 +8,8 @@ export const allProductos = async ()=>{
     return res.data;
 }
 
-export const addProducto = async ({id,data}) =>{
-    const res = await axios.post(`${url}/api/store/products/${id}`,data);
+export const addProducto = async ({data}) =>{
+    const res = await axios.post(`${url}/api/store/products/`,data);
     return res.data;
 }
 
@@ -18,8 +18,8 @@ export const idProducto = async (id)=>{
     return res.data;
 }
 
-export const updateProducto = async ({id=0,data=null})=>{
-    const res = await axios.put(`${url}/api/store/products/${id}`,data);
+export const updateProducto = async ({data={}})=>{
+    const res = await axios.put(`${url}/api/store/products/${data['pk']}`,data);
     return res.data;
 }
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {api} from '../../package.json';
 import { allProductos, addProducto, idProducto, updateProducto } from '../api/products';
 
@@ -16,14 +15,16 @@ export const fetchProductos = () =>{
     }
 }
 
-export const postProduct = (id=0,data=null) =>{
+export const postProduct = (data=null) =>{
     return async dispatch =>{
         dispatch({type:'LOADING',value:true});
-        const res = await addProducto({id,data});
-        console.log(res.data);
-        if(res.data){
+        const res = await addProducto({data});
+        console.log(res);
+        if(res){
             const prods = await allProductos();
+            console.log(prods);
             dispatch({type:'ADD_PRODUCTS',value:prods.data,page:prods.data.numpages});
+            window.location.href = '/ProductsList'
         }
         dispatch({type:'LOADING',value:false});
     }
@@ -42,14 +43,15 @@ export const getProductId = id =>{
     }
 }
 
-export const putProductId = (id=0,data=null) =>{
+export const putProductId = (data=null) =>{
     return async dispatch =>{
         dispatch({type:'LOADING',value:true});
-        const res = await updateProducto({id,data});
-        console.log(res.data);
-        if(res.data){
+        const res = await updateProducto({data});
+        console.log(res);
+        if(res){
             const prods = await allProductos();
-            dispatch({type:'ADD_PRODUCTS',value:prods.data.data,page:prods.data.data.numpages});
+            dispatch({type:'ADD_PRODUCTS',value:prods.data,page:prods.data.numpages});
+            window.location.href = '/ProductsList'
         }
         dispatch({type:'LOADING',value:false});
     }
