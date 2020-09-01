@@ -5,7 +5,7 @@ import LayoutApp from '../components/Layout';
 import { useHistory } from 'react-router-dom';
 
 import Table from '@material-ui/core/Table';
-import { TableHead, TableRow, TableCell, TableBody, Button, TableFooter, TablePagination, Fab, IconButton, MenuList, MenuItem } from '@material-ui/core';
+import { TableHead, TableRow, TableCell, TableBody, Button, TableFooter, TablePagination, Fab, IconButton, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar, ListItemIcon, Avatar, Divider, ListItemSecondaryAction } from '@material-ui/core';
 import {Add, Edit, Delete, ImageRounded } from '@material-ui/icons';
 
 const HomeApp =()=>{
@@ -26,29 +26,28 @@ const HomeApp =()=>{
     }
 
     return(<LayoutApp>
-       <h3>home app</h3>
+       <h3>Configuracion de productos de pedido</h3>
        <br/>
-       <Table >
-           <HeadProductos />
-           <BoddyProductos history={push} list={list} />
-            <TablePagination 
-                page={0}
-                count={list.length}
-                rowsPerPage={15}
-                color='primary'
-                onChangePage={e=>e}
-            />
-       </Table>
-       <Fab
-            color='primary'
-            href='/add'
-            style={{
-                position:'absolute',
-                float:'right',
-                right:10,
-                bottom:10
-            }}
-       >
+       <List style={{height:390,overflow:'auto'}}>
+           {
+               list.map(item=>[<ListItem key={item.pk} >
+                   <ListItemAvatar>
+                       <Avatar src={item.image} />
+                   </ListItemAvatar>
+                   <ListItemText primary={item.nombre} secondary={item.ingredientes} />
+                   <ListItemSecondaryAction  >
+                       <IconButton color='primary' onClick={()=>push(`edit/${item.pk}`)}>
+                           <Edit />
+                       </IconButton>
+                       <IconButton color='secondary'>
+                           <Delete />
+                       </IconButton>
+                    </ListItemSecondaryAction>
+               </ListItem>,<Divider />])
+           }
+       </List>
+ 
+       <Fab color='primary' href='/add' style={{position:'absolute',display:'flex',right:10,bottom:10,flexDirection:'row-reverse',}}>
            <Add  />
        </Fab>
     </LayoutApp>);

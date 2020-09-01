@@ -67,7 +67,7 @@ const Products = () =>{
                 value={selected['preparacion']}
             />
             <br />
-            <img src={selected['image']} width='150' height='150' />
+            <img src={selected['image']} width='150' height='150' alt='imagen producto' style={{borderRadius:100}} />
             <br />
             <TextField 
                 label='imagen'
