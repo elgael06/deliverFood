@@ -32,6 +32,7 @@ export const postProduct = (id=0,data=null) =>{
 export const getProductId = id =>{
     return async dispatch =>{
         dispatch({type:'LOADING',value:true});
+        dispatch({type:'SELECT_PRODUCT',value:null});
         const value = await idProducto(id);
         console.log(value);
         if(value){

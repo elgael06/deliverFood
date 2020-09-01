@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './layout.css';
-import { Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { removeSesion } from '../actions/sesion';
+import { ArrowBack } from '@material-ui/icons';
 
-const LayoutApp = ({children})=>{
+const LayoutApp = ({back=true,children,title=''})=>{
     const dispatch = useDispatch();
     const history = useHistory();
 
     const logOut = ()=>{
         dispatch(removeSesion())
-        history.push('/login')
+        history.push('/login');
     }
     return(<div className='app-container'>
         <nav className='navbar-container'>
@@ -28,6 +29,10 @@ const LayoutApp = ({children})=>{
             </div>
         </nav>
         <div className='section'>
+                { back &&<IconButton onClick={history.goBack}>
+                    <ArrowBack />
+                </IconButton>}
+                <b style={{margin:'5px 20px',fontSize:21}}>{title}</b>
                 {children}
         </div>
     </div>);

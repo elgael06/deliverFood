@@ -3,8 +3,8 @@ import LayoutApp from '../components/Layout';
 
 const AboutApp = ()=>{
 
-    return(<LayoutApp>
-        <h3>about</h3>
+    return(<LayoutApp title='Acerca de:'>
+
     </LayoutApp>);
 }
 
