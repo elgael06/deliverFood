@@ -1,5 +1,5 @@
 import {api} from '../../package.json';
-import { allProductos, addProducto, idProducto, updateProducto } from '../api/products';
+import { allProductos, addProducto, idProducto, updateProducto, deleteProducto } from '../api/products';
 
 const url = process.env['NODE_ENV']==='development' ? api.dev : api.prod;
 
@@ -60,12 +60,11 @@ export const putProductId = (data=null) =>{
 export const deleteProductId = (id=0) =>{
     return async dispatch =>{
         dispatch({type:'LOADING',value:true});
-        const res = await deleteProductId({id});
-        console.log(res.data);
-        if(res.data){
-            const prods = await allProductos();
-            dispatch({type:'ADD_PRODUCTS',value:prods.data.data,page:prods.data.data.numpages});
-        }
+        const res = await deleteProducto({id});
+        dispatch({type:'ADD_PRODUCTS',value:[],page:0});
+        
+        const prods = await allProductos();
+        dispatch({type:'ADD_PRODUCTS',value:prods.data,page:prods.data.numpages});
         dispatch({type:'LOADING',value:false});
     }
 }

@@ -24,6 +24,7 @@ def item_store_list(request):
         data = []
         nextPage = 1
         previousPage = 1
+        # pylint: disable=maybe-no-member
         itemStore = ItemStore.objects.all()
         page = request.GET.get('page', 1)
         paginator = Paginator(itemStore, 10)
@@ -63,6 +64,7 @@ def item_store_list(request):
 @api_view(['GET','PUT','DELETE'])
 def item_store_detail(request,pk):
     try:
+        # pylint: disable=maybe-no-member
         itemStore = ItemStore.objects.get(pk=pk)
     except ItemStore.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
