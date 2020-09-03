@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductos, deleteProductId } from '../actions/products';
 import LayoutApp from '../components/Layout';
@@ -37,22 +37,23 @@ const ListaProductos =()=>{
 
     return(<LayoutApp title='Productos.'>
        <List style={{height:'80%',overflow:'auto'}}>
-           {
-               list.map(item=>[<ListItem key={item.pk} >
-                   <ListItemAvatar>
-                       <Avatar src={item.image} />
-                   </ListItemAvatar>
-                   <ListItemText primary={item.nombre} secondary={item.ingredientes} />
-                   <ListItemSecondaryAction  >
-                       <IconButton color='primary' onClick={()=>push(`edit/${item.pk}`)}>
-                           <Edit />
-                       </IconButton>
-                       <IconButton color='secondary' onClick={()=>handleDelete(item)}>
-                           <Delete />
-                       </IconButton>
-                    </ListItemSecondaryAction>
-               </ListItem>,<Divider />])
-           }
+           {list.map(item=><Fragment key={item.pk}>
+                   <ListItem >
+                    <ListItemAvatar>
+                        <Avatar src={item.image} />
+                    </ListItemAvatar>
+                    <ListItemText primary={item.nombre} secondary={item.ingredientes} />
+                    <ListItemSecondaryAction  >
+                        <IconButton color='primary' onClick={()=>push(`edit/${item.pk}`)}>
+                            <Edit />
+                        </IconButton>
+                        <IconButton color='secondary' onClick={()=>handleDelete(item)}>
+                            <Delete />
+                        </IconButton>
+                        </ListItemSecondaryAction>
+                </ListItem>
+                <Divider />
+            </Fragment>)}
        </List>
  
        <Fab variant='extended' color='primary' href='/add' style={{position:'absolute',display:'flex',right:10,bottom:10,flexDirection:'row-reverse',}}>

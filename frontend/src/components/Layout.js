@@ -29,11 +29,14 @@ const LayoutApp = ({back=true,children,title=''})=>{
             </div>
         </nav>
         <div className='section'>
+            <section style={{height:48,display:'flex',alignItems:'center'}}>
                 { back &&<IconButton onClick={history.goBack}>
                     <ArrowBack />
                 </IconButton>}
                 <b style={{margin:'5px 20px',fontSize:21}}>{title}</b>
-                {children}
+            </section>
+            <hr />
+            {children}
         </div>
     </div>);
 }

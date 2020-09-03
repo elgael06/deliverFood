@@ -6,7 +6,7 @@ export const initialSesion = {
     "email": "",
     "apodo": "",
     "token": "",
-    "sesion": false
+    "sesion": false,
 };
 
 export default function sesion (state=initialSesion,action){
