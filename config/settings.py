@@ -1,6 +1,7 @@
 
 from pathlib import Path
 import os
+import django_heroku
 # import mimetypes
 
 # mimetypes.guess_all_extensions(type="text/html",strict=False)
@@ -148,6 +149,9 @@ STATICFILES_DIRS = [
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
 # )
+
+# Configure app for Heroku deployment
+django_heroku.settings(locals())
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
