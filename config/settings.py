@@ -87,7 +87,7 @@ DATABASES = {
 }
 CREATE_REACT_APP = {
         'DEFAULT': {
-            'BUNDLE_DIR_NAME': 'frontend/build/',
+            'BUNDLE_DIR_NAME': 'build/',
             'FRONT_END_SERVER': "http://localhost:3000/",
             'is_dev': True,
         }
