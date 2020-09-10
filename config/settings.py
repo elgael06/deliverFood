@@ -1,23 +1,24 @@
 
 from pathlib import Path
 import os
-import mimetypes
+# import mimetypes
 
-mimetypes.add_type("text/css", ".css", True)
-mimetypes.add_type("text/html", ".css", True)
+# mimetypes.guess_all_extensions(type="text/html",strict=False)
+# mimetypes.guess_type(strict=False)
+# mimetypes.add_type("text/css", ".css", True)
+# mimetypes.add_type("text/html", ".css", True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-TPL_DIR = os.path.join(BASE_DIR, 'templates/')
-STATIC_URL = '/static/'
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# TPL_DIR = os.path.join(BASE_DIR, 'templates/')
 # STATIC_ROOT = os.path.join(PROJECT_ROOT, 'build')
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# SITE_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'x1mul9xsa1srttw7h7%rewq%=j$+$@!fs0xioyey&f4=o8clie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -32,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'create_react_app',
+    # 'create_react_app',
     'corsheaders',    
     'backend.apps.customers',    
     'backend.apps.store',
@@ -47,7 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -91,13 +93,13 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-CREATE_REACT_APP = {
-        'DEFAULT': {
-            'BUNDLE_DIR_NAME': 'build/',
-            'FRONT_END_SERVER': "http://localhost:3000/",
-            'is_dev': True,
-        }
-    }
+# CREATE_REACT_APP = {
+#         'DEFAULT': {
+#             'BUNDLE_DIR_NAME': 'build/',
+#             'FRONT_END_SERVER': "http://localhost:3000/",
+#             'is_dev': True,
+#         }
+#     }
 
 
 # Password validation
@@ -146,4 +148,7 @@ STATICFILES_DIRS = [
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
 # )
+
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
