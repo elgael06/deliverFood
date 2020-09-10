@@ -7,8 +7,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 TPL_DIR = os.path.join(BASE_DIR, 'templates/')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'build')
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 SECRET_KEY = 'x1mul9xsa1srttw7h7%rewq%=j$+$@!fs0xioyey&f4=o8clie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -45,14 +46,15 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-ROOT_URLCONF = 'backend.config.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
-            TPL_DIR 
+            # os.path.join(BASE_DIR, 'templates'),
+            # TPL_DIR,
+            os.path.join(BASE_DIR, 'build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -66,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.config.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -131,8 +133,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 # STATIC_ROOT = '/frontend/public/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'build/static/'),
+]
 
 # STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'frontend'),
+#     os.path.join(BASE_DIR, 'static'),
 # )
 
