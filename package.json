@@ -47,5 +47,6 @@
   "api": {
     "prod": "",
     "dev": ""
-  }
+  },
+  "proxy": "http://localhost:8000"
 }

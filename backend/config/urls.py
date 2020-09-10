@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 urlpatterns = [
-    path('api/store/',include('apps.store.urls')),# this the store api.
-    path('api/customers/',include('apps.customers.urls')),# this the customers api.
-    path('api/sesion/',include('apps.sesion.urls')),    
+    path('api/store/',include('backend.apps.store.urls')),# this the store api.
+    path('api/customers/',include('backend.apps.customers.urls')),# this the customers api.
+    path('api/sesion/',include('backend.apps.sesion.urls')),    
     
-    path('',include('apps.urls')),#this the index app
+    path('',include('backend.apps.urls')),#this the index app
 ]

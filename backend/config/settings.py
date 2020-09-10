@@ -29,9 +29,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'create_react_app',
     'corsheaders',    
-    'apps.customers',    
-    'apps.store',
-    'apps.sesion',
+    'backend.apps.customers',    
+    'backend.apps.store',
+    'backend.apps.sesion',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'backend.config.urls'
 
 TEMPLATES = [
     {
@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'backend.config.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
 
 
