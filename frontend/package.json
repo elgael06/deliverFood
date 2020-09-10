@@ -46,7 +46,7 @@
     ]
   },
   "api": {
-    "prod": "https://api-deliver-web.mya-app.tech",
-    "dev": "http://localhost:8000"
+    "prod": "",
+    "dev": ""
   }
 }

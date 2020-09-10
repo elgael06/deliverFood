@@ -4,11 +4,15 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+TPL_DIR = os.path.join(BASE_DIR, 'templates/')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 SECRET_KEY = 'x1mul9xsa1srttw7h7%rewq%=j$+$@!fs0xioyey&f4=o8clie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -23,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'create_react_app',
     'corsheaders',    
     'apps.customers',    
     'apps.store',
@@ -40,13 +45,14 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-ROOT_URLCONF = 'deliverFood.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'frontend'),
+            os.path.join(BASE_DIR, 'templates'),
+            TPL_DIR 
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -60,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'deliverFood.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -79,6 +85,13 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+CREATE_REACT_APP = {
+        'DEFAULT': {
+            'BUNDLE_DIR_NAME': 'frontend/build/',
+            'FRONT_END_SERVER': "http://localhost:3000/",
+            'is_dev': True,
+        }
+    }
 
 
 # Password validation
@@ -117,9 +130,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = '/frontend/public/'
+# STATIC_ROOT = '/frontend/public/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'frontend'),
+# )
 
