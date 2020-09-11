@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "config.settings"
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'deliverFood.settings')
+# os.environ["DJANGO_SETTINGS_MODULE"] = "config.settings"
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'deliver/Food.settings')
 
 application = get_wsgi_application()
