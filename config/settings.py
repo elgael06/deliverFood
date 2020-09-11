@@ -1,7 +1,6 @@
 
 from pathlib import Path
 import os
-# import django_heroku
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # Path(__file__).resolve(strict=True).parent.parent
@@ -82,13 +81,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-# CREATE_REACT_APP = {
-#         'DEFAULT': {
-#             'BUNDLE_DIR_NAME': 'build/',
-#             'FRONT_END_SERVER': "http://localhost:3000/",
-#             'is_dev': True,
-#         }
-#     }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -125,5 +117,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static/'),
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
