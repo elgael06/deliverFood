@@ -76,10 +76,9 @@ const ModalAccesos = ({
     setOpen     = e=>e
 })=>{
     const [controlAccesos,setAccesos] = useState(accesos);
-    const [activos,setActivos] = useState([]);
 
     const select = item =>{
-        
+        setAccesos(accesos);
     } 
 
     return(<Dialog open={open}>

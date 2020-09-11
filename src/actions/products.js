@@ -1,7 +1,7 @@
 import {api} from '../../package.json';
 import { allProductos, addProducto, idProducto, updateProducto, deleteProducto } from '../api/products';
 
-const url = process.env['NODE_ENV']==='development' ? api.dev : api.prod;
+export const url = process.env['NODE_ENV']==='development' ? api.dev : api.prod;
 
 export const fetchProductos = () =>{
     return async dispatch =>{

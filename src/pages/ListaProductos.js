@@ -4,11 +4,11 @@ import { fetchProductos, deleteProductId } from '../actions/products';
 import LayoutApp from '../components/Layout';
 import { useHistory } from 'react-router-dom';
 
-import { Fab, IconButton, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, ListItemSecondaryAction, Dialog, AppBar, Tooltip, Button, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import {Add, Edit, Delete, Close, CloseSharp } from '@material-ui/icons';
+import { Fab, IconButton, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, ListItemSecondaryAction, Dialog, Button, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import {Add, Edit, Delete, CloseSharp } from '@material-ui/icons';
 
 const ListaProductos =()=>{
-    const {list=[],page=0} = useSelector(state=>state.productsStore);
+    const {list=[]} = useSelector(state=>state.productsStore);
     const dispatch = useDispatch();
     const history = useHistory();
     const [modal,setModal] = useState(false);
@@ -16,7 +16,7 @@ const ListaProductos =()=>{
 
     useEffect(()=>{
         console.log('lista productos.')
-        list.length==0 && obtenerProductos();
+        list.length===0 && obtenerProductos();
     },[]);
     const obtenerProductos =()=>{
         dispatch(fetchProductos());        

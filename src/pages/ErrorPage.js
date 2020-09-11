@@ -12,7 +12,7 @@ const ErrorPage = ()=>{
 
     useEffect(()=>{
         dispatch(d=>d({type:'LOADING',value:false}));
-    },[])
+    },[]);
 
     const regregar =()=>{
         history.goBack();

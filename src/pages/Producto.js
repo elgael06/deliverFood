@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, InputAdornment, Card, CardMedia, CardContent, CardActions } from '@material-ui/core';
 
 const Products = () =>{
-    const history = useHistory();
     const dispatch = useDispatch();
     const {selected =null} = useSelector(state => state.productsStore)
     const {id} = useParams();
@@ -36,11 +35,11 @@ const Products = () =>{
     }
     const enviarCambios = ()=>{
         console.log('enviar cambios',selected);
-        if(    selected['imagen']       !=''
-            && selected['nombre']       !=''
-            && selected['ingredientes'] !=''
+        if(    selected['imagen']       !==''
+            && selected['nombre']       !==''
+            && selected['ingredientes'] !==''
             && selected['costo']        >0
-            && selected['preparacion']  !=''
+            && selected['preparacion']  !==''
             && selected['price']        >0 
         ){
             console.log('guardar');
