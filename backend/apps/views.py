@@ -9,13 +9,13 @@ from django.views.decorators.cache import never_cache
 
 
 
-# index = never_cache(TemplateView.as_view(template_name='index.html'))
+index = never_cache(TemplateView.as_view(template_name='index.html'))
 
-def index(request):
-    print('home')
-    # template = loader.get_template("index.html")
-    # try:
-    return render(request, 'index.html')
+# def index(request):
+#     print('home')
+#     # template = loader.get_template("index.html")
+#     # try:
+#     return render(request, 'index.html')
     # except Exception:
     #     index_file_path = os.path.join(settings.REACT_APP_DIR, 'build', 'index.html')
     #     with open(index_file_path) as f:
