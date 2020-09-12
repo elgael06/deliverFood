@@ -15,7 +15,7 @@ STATIC_FILES = os.path.join(BASE_DIR, 'files/static_files/')
 SECRET_KEY = 'x1mul9xsa1srttw7h7%rewq%=j$+$@!fs0xioyey&f4=o8clie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
-    os.path.join( STATIC ),
+    STATIC ,
 )
 #Collects the static files into STATIC_ROOT.
 STATIC_ROOT = STATIC_FILES
