@@ -23,3 +23,15 @@ class OrderStore(models.Model):
     idItem   = models.ForeignKey(ItemStore, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=1)
     total    = models.FloatField(default=0.0)
+
+class Clasificacion(models.Model):
+    name = models.TextField(max_length=50,default="")
+    image = models.TextField(default='')
+    estatus = models.BooleanField(default=True)
+    
+class ClasificacionItem(models.Model):
+    idItem = models.IntegerField(null=False)
+    idClase = models.IntegerField(null=False)
+
+    
+

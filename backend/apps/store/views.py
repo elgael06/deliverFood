@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import ItemStore
+from .models import ItemStore, Clasificacion
 from . import serializers
 from django.template import loader
 
@@ -83,3 +83,15 @@ def item_store_detail(request,pk):
     elif request.method == 'DELETE':
         itemStore.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def clasificaciones(request):
+    # pylint: disable=maybe-no-member
+    clasific = Clasificacion.objects.all()
+    
+    print(clasific.count)
+    ser = serializers.ClasificacionSer(clasific,context={'request': request},many=True)
+    # print(ser.data)
+    return Response(ser.data)
+    
+        
