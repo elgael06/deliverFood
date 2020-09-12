@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 urlpatterns = [
     path('api/store/',include('backend.apps.store.urls')),# this the store api.
     path('api/customers/',include('backend.apps.customers.urls')),# this the customers api.
@@ -22,3 +24,5 @@ urlpatterns = [
     
     path('',include('backend.apps.urls')),#this the index app
 ]
+
+urlpatterns += staticfiles_urlpatterns()

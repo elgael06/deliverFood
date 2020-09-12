@@ -4,6 +4,14 @@ import os
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # Path(__file__).resolve(strict=True).parent.parent
+
+TPL_DIR = os.path.join(BASE_DIR, 'templates/')
+DB_FILE = os.path.join(BASE_DIR, 'database/database.sqlite3')
+CACHE_DIR = os.path.join(BASE_DIR, 'files/cache/')
+MEDIA = os.path.join(BASE_DIR, 'files/media/')
+STATIC = os.path.join(BASE_DIR, 'files/static/')
+STATIC_FILES = os.path.join(BASE_DIR, 'files/static_files/')
+
 SECRET_KEY = 'x1mul9xsa1srttw7h7%rewq%=j$+$@!fs0xioyey&f4=o8clie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -48,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'client/build'),
+            os.path.join(BASE_DIR, 'template'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -113,8 +121,10 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'client/build/static/'),
-]
-
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join( STATIC ),
+)
+#Collects the static files into STATIC_ROOT.
+STATIC_ROOT = STATIC_FILES
 
