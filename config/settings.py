@@ -5,17 +5,17 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # Path(__file__).resolve(strict=True).parent.parent
 
-TPL_DIR = os.path.join(BASE_DIR, 'templates/')
+TPL_DIR = os.path.join(BASE_DIR, 'build/')
 DB_FILE = os.path.join(BASE_DIR, 'database/database.sqlite3')
 CACHE_DIR = os.path.join(BASE_DIR, 'files/cache/')
 MEDIA = os.path.join(BASE_DIR, 'files/media/')
-STATIC = os.path.join(BASE_DIR, 'files/static/')
+STATIC = os.path.join(BASE_DIR, 'build/static/')
 STATIC_FILES = os.path.join(BASE_DIR, 'files/static_files/')
 
 SECRET_KEY = 'x1mul9xsa1srttw7h7%rewq%=j$+$@!fs0xioyey&f4=o8clie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 

@@ -7,5 +7,5 @@ urlpatterns = [
     path('static/css/main.257237ba.chunk.css', TemplateView.as_view(template_name='/static/css/main.257237ba.chunk.css')),
     # url(r'^', TemplateView.as_view(template_name='index.html')),
     # url(r'^', TemplateView.as_view(template_name='index.html')),
-    path('', views.index,name='index'),
+    url(r'^', views.index,name='index'),
 ]
