@@ -22,10 +22,12 @@ def customers_list(request):
     if request.method == 'GET':
         data = []
         nextPage = 1
-        previousPage = 1
+        previousPage = 1        
+    # pylint: disable=maybe-no-member
         customers = Customer.objects.all()
         page = request.GET.get('page', 1)
         paginator = Paginator(customers, 10)
+        
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
@@ -57,6 +59,8 @@ def customers_list(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def customers_detail(request, pk):
     try:
+        
+        # pylint: disable=maybe-no-member
         customer = Customer.objects.get(pk=pk)
     except Customer.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
