@@ -127,7 +127,7 @@ const ListaProductos =()=>{
         <ModalCategorias 
             modal={modalCat}
             selectedItem={selectedItem}
-            child={<List style={{height:300,width:300,overflow:'auto'}}>
+            child={<List style={{height:300,overflow:'auto'}}>
                 {
                     clasificaciones.datos.map(item=>{
                         const activos = clasificaciones.activos || [];
