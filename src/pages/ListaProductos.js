@@ -47,7 +47,7 @@ const ListaProductos =()=>{
                     </ListItemAvatar>
                     <ListItemText primary={item.nombre} secondary={item.ingredientes} />
                     <ListItemSecondaryAction  >
-                    <IconButton color='inherit' onClick={()=>seleccionarCategorias(item.pk)}>
+                        <IconButton color='inherit' onClick={()=>seleccionarCategorias(item.pk)}>
                             <ListAltRounded />
                         </IconButton>
                         <IconButton color='primary' onClick={()=>push(`edit/${item.pk}`)}>
