@@ -130,7 +130,7 @@ def AddClasificadorProducto(request,pk,idClase):
         
     if request.method == 'DELETE':
     # pylint: disable=maybe-no-member
-        ClasificacionItem.objects.first(idClase=idClase,idItem=pk).delete()
+        ClasificacionItem.objects.get(idClase=idClase,idItem=pk).delete()
         print('elimidado...')
         
     # pylint: disable=maybe-no-member

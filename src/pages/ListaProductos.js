@@ -6,6 +6,9 @@ import { useHistory } from 'react-router-dom';
 
 import { Fab, IconButton, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, ListItemSecondaryAction, Dialog, Button, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import {Add, Edit, Delete, CloseSharp, ListAltRounded, Check } from '@material-ui/icons';
+import { agregarItemClasificacion, eliminarItemClasificacion, fetchClasificaciones, fetchClasificacionesId } from '../api/clasificaciones';
+
+import Checkbox from '@material-ui/core/Checkbox';
 
 const ListaProductos =()=>{
     const {list=[]} = useSelector(state=>state.productsStore);
@@ -14,6 +17,10 @@ const ListaProductos =()=>{
     const [modal,setModal] = useState(false);
     const [modalCat,setModalCat] = useState(false);
     const [selectedItem,setSelected] = useState(null);
+    const [clasificaciones,setCasificaciones] = useState({
+        datos:[],
+        activos:[]
+    });
 
     useEffect(()=>{
         console.log('lista productos.')
@@ -35,9 +42,41 @@ const ListaProductos =()=>{
         dispatch(deleteProductId(selectedItem['pk'] || 0));
         setModal(false);
     }
-    const seleccionarCategorias = item =>{
+    const seleccionarCategorias = async item =>{
         setSelected(item);
         setModalCat(true);
+
+        setCasificaciones({
+            datos:[],
+            activos:[]
+        });
+        
+       const datos = await fetchClasificaciones();
+       const activos =await fetchClasificacionesId(item.pk);
+        setCasificaciones({
+            datos,
+            activos
+        });
+    }
+    const chequedClasificacion = item => async e =>{
+        console.log(e.target.checked);
+        const status = e.target.checked;
+        const id = selectedItem.pk;
+        let resp = [];
+        
+        setCasificaciones({
+            ...clasificaciones,
+            activos: status? [...clasificaciones.activos,item] : clasificaciones.activos.filter(i=>i.pk!==item.pk)
+        });
+
+        if(status)
+            resp = await agregarItemClasificacion(id,item.pk);
+        else 
+            resp = await eliminarItemClasificacion(id,item.pk);
+        setCasificaciones({
+            ...clasificaciones,
+            activos:resp
+        });
     }
 
     return(<LayoutApp title='Productos.'>
@@ -79,7 +118,28 @@ const ListaProductos =()=>{
             modal={modalCat}
             selectedItem={selectedItem}
             child={<List style={{height:300,width:300,overflow:'auto'}}>
-
+                {
+                    clasificaciones.datos.map(item=>{
+                        const activos = clasificaciones.activos || [];
+                        const resp = activos.filter(e=>item.pk === e.pk);
+                        return <ListItem key={item.pk}>
+                            <ListItemAvatar>
+                                <Avatar
+                                    src={item.image}
+                                />
+                            </ListItemAvatar>
+                            <ListItemText 
+                                primary={item.name}
+                            />
+                            <ListItemSecondaryAction>
+                                <Checkbox
+                                    checked={resp.length}
+                                    onChange={chequedClasificacion(item)}
+                                />
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    })
+                }
             </List>}
             aceptar={()=>setModalCat(false)}
         />
