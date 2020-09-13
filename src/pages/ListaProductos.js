@@ -5,7 +5,7 @@ import LayoutApp from '../components/Layout';
 import { useHistory } from 'react-router-dom';
 
 import { Fab, IconButton, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, ListItemSecondaryAction, Dialog, Button, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import {Add, Edit, Delete, CloseSharp } from '@material-ui/icons';
+import {Add, Edit, Delete, CloseSharp, ListAltRounded } from '@material-ui/icons';
 
 const ListaProductos =()=>{
     const {list=[]} = useSelector(state=>state.productsStore);
@@ -34,6 +34,9 @@ const ListaProductos =()=>{
         dispatch(deleteProductId(selectedItem['pk'] || 0));
         setModal(false);
     }
+    const seleccionarCategorias = id =>{
+
+    }
 
     return(<LayoutApp title='Productos.'>
        <List style={{height:'80%',overflow:'auto'}}>
@@ -44,6 +47,9 @@ const ListaProductos =()=>{
                     </ListItemAvatar>
                     <ListItemText primary={item.nombre} secondary={item.ingredientes} />
                     <ListItemSecondaryAction  >
+                    <IconButton color='inherit' onClick={()=>seleccionarCategorias(item.pk)}>
+                            <ListAltRounded />
+                        </IconButton>
                         <IconButton color='primary' onClick={()=>push(`edit/${item.pk}`)}>
                             <Edit />
                         </IconButton>
@@ -61,27 +67,39 @@ const ListaProductos =()=>{
            Nuevo
        </Fab>
 
-        <Dialog open={modal}>
-            <DialogTitle> 
-                <label>Borrar producto ?</label>
-            </DialogTitle>
-            <DialogContent>
-                {
-                    selectedItem && <ListItem >
-                    <ListItemAvatar>
-                        <Avatar src={selectedItem.image} />
-                    </ListItemAvatar>
-                    <ListItemText primary={selectedItem.nombre} secondary={selectedItem.ingredientes} />
-                </ListItem>
-                }
-            </DialogContent>
-            <DialogActions>
-                <Button color='inherit' onClick={()=>setModal(false)} startIcon={<CloseSharp />} >Cancelar</Button>
-                <Button color='secondary' onClick={BorrarPorID} variant='outlined' startIcon={<Delete/>} >Borrar</Button>
-            </DialogActions>
-        </Dialog>
+        <ModalBorrar 
+            modal={modal}
+            selectedItem={selectedItem}
+            BorrarPorID={BorrarPorID}
+            cancelar={()=>setModal(false)}
+        />
 
     </LayoutApp>);
 }
+
+const ModalBorrar = ({
+    modal=false,
+    selectedItem =null,
+    BorrarPorID=e=>e,
+    cancelar=e=>e
+}) => (<Dialog open={modal}>
+    <DialogTitle> 
+        <label>Borrar producto ?</label>
+    </DialogTitle>
+    <DialogContent>
+        {
+            selectedItem && <ListItem >
+            <ListItemAvatar>
+                <Avatar src={selectedItem.image} />
+            </ListItemAvatar>
+            <ListItemText primary={selectedItem.nombre} secondary={selectedItem.ingredientes} />
+        </ListItem>
+        }
+    </DialogContent>
+    <DialogActions>
+        <Button color='inherit' onClick={cancelar} startIcon={<CloseSharp />} >Cancelar</Button>
+        <Button color='secondary' onClick={BorrarPorID} variant='outlined' startIcon={<Delete/>} >Aceptar</Button>
+    </DialogActions>
+</Dialog>);
 
 export default ListaProductos;

@@ -12,7 +12,7 @@ from django.template import loader
 # Create your views here.
 
 def index(request):
-    template = loader.get_template("../../app/frontend/public/index.html")
+    template = loader.get_template("index.html")
     return HttpResponse(template.render())
     # return HttpResponse("Hello, world. You're at the store index.")
 
