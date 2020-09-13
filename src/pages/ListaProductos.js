@@ -4,8 +4,8 @@ import { fetchProductos, deleteProductId } from '../actions/products';
 import LayoutApp from '../components/Layout';
 import { useHistory } from 'react-router-dom';
 
-import { Fab, IconButton, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, ListItemSecondaryAction, Dialog, Button, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import {Add, Edit, Delete, CloseSharp, ListAltRounded, Check } from '@material-ui/icons';
+import { Fab, IconButton, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, ListItemSecondaryAction, Dialog, Button, DialogTitle, DialogContent, DialogActions, TextField, InputAdornment } from '@material-ui/core';
+import {Add, Edit, Delete, CloseSharp, ListAltRounded, Check, Search } from '@material-ui/icons';
 import { agregarItemClasificacion, eliminarItemClasificacion, fetchClasificaciones, fetchClasificacionesId } from '../api/clasificaciones';
 
 import Checkbox from '@material-ui/core/Checkbox';
@@ -21,6 +21,7 @@ const ListaProductos =()=>{
         datos:[],
         activos:[]
     });
+    const [filtro,setFiltro] = useState('');
 
     useEffect(()=>{
         console.log('lista productos.')
@@ -80,8 +81,17 @@ const ListaProductos =()=>{
     }
 
     return(<LayoutApp title='Productos.'>
-       <List style={{height:'80%',overflow:'auto'}}>
-           {list.map(item=><Fragment key={item.pk}>
+        <TextField
+            value={filtro}
+            onChange={e=>setFiltro(e.target.value)}
+            style={{width:'95%'}}
+            placeholder='filtro comida...'
+            InputProps={{
+                startAdornment: <InputAdornment position="start"><Search /> </InputAdornment>,
+            }}
+        />
+       <List style={{height:'70%',overflow:'auto'}}>
+           {list.filter(it=>it.nombre.toUpperCase().includes(filtro.toUpperCase())).map(item=><Fragment key={item.pk}>
                    <ListItem >
                     <ListItemAvatar>
                         <Avatar src={item.image} />
