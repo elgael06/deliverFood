@@ -25,7 +25,9 @@ def item_store_list(request):
         nextPage = 1
         previousPage = 1
         # pylint: disable=maybe-no-member
-        itemStore = ItemStore.objects.all()
+        itemStore = ItemStore.objects.all().order_by(
+        'nombre'
+        )
         page = request.GET.get('page', 1)
         paginator = Paginator(itemStore, 10)
         try:
@@ -34,7 +36,7 @@ def item_store_list(request):
             data = paginator.page(1)
         except EmptyPage:
             data = paginator.page(paginator.num_pages)
-        serializer = serializers.ItemStoreSerializer(data,context={'request': request} ,many=True)
+        serializer = serializers.ItemStoreSerializer(itemStore,context={'request': request} ,many=True)
         
         if data.has_next():
             nextPage = data.next_page_number()
