@@ -5,13 +5,14 @@ import LayoutApp from '../components/Layout';
 import { useHistory } from 'react-router-dom';
 
 import { Fab, IconButton, List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, ListItemSecondaryAction, Dialog, Button, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import {Add, Edit, Delete, CloseSharp, ListAltRounded } from '@material-ui/icons';
+import {Add, Edit, Delete, CloseSharp, ListAltRounded, Check } from '@material-ui/icons';
 
 const ListaProductos =()=>{
     const {list=[]} = useSelector(state=>state.productsStore);
     const dispatch = useDispatch();
     const history = useHistory();
     const [modal,setModal] = useState(false);
+    const [modalCat,setModalCat] = useState(false);
     const [selectedItem,setSelected] = useState(null);
 
     useEffect(()=>{
@@ -34,8 +35,9 @@ const ListaProductos =()=>{
         dispatch(deleteProductId(selectedItem['pk'] || 0));
         setModal(false);
     }
-    const seleccionarCategorias = id =>{
-
+    const seleccionarCategorias = item =>{
+        setSelected(item);
+        setModalCat(true);
     }
 
     return(<LayoutApp title='Productos.'>
@@ -47,7 +49,7 @@ const ListaProductos =()=>{
                     </ListItemAvatar>
                     <ListItemText primary={item.nombre} secondary={item.ingredientes} />
                     <ListItemSecondaryAction  >
-                        <IconButton color='inherit' onClick={()=>seleccionarCategorias(item.pk)}>
+                        <IconButton color='inherit' onClick={()=>seleccionarCategorias(item)}>
                             <ListAltRounded />
                         </IconButton>
                         <IconButton color='primary' onClick={()=>push(`edit/${item.pk}`)}>
@@ -73,6 +75,14 @@ const ListaProductos =()=>{
             BorrarPorID={BorrarPorID}
             cancelar={()=>setModal(false)}
         />
+        <ModalCategorias 
+            modal={modalCat}
+            selectedItem={selectedItem}
+            child={<List style={{height:300,width:300,overflow:'auto'}}>
+
+            </List>}
+            aceptar={()=>setModalCat(false)}
+        />
 
     </LayoutApp>);
 }
@@ -81,10 +91,37 @@ const ModalBorrar = ({
     modal=false,
     selectedItem =null,
     BorrarPorID=e=>e,
-    cancelar=e=>e
-}) => (<Dialog open={modal}>
+    cancelar=e=>e,
+}) => (<ModalGenerica 
+    titulo='Borrar producto ?'
+    modal={modal}
+    selectedItem={selectedItem}
+    botonesAccion={[ <Button color='inherit' onClick={cancelar} startIcon={<CloseSharp />} >Cancelar</Button>,
+    <Button color='secondary' onClick={BorrarPorID} variant='outlined' startIcon={<Delete/>} >Aceptar</Button>]}
+/>);
+
+const ModalCategorias = ({
+    modal=false,
+    selectedItem =null,
+    child=null,
+    aceptar=e=>e,
+})=>(<ModalGenerica 
+    titulo='Categorias producto.'
+    modal={modal}
+    selectedItem={selectedItem}
+    child={child}
+    botonesAccion={<Button color='primary' onClick={aceptar} variant='outlined' startIcon={<Check/>} >Aceptar</Button>}
+/>);
+
+const ModalGenerica = ({
+    modal=false,
+    titulo='',
+    selectedItem =null,
+    child=null,
+    botonesAccion = null
+}) =>(<Dialog open={modal}>
     <DialogTitle> 
-        <label>Borrar producto ?</label>
+        <label>{titulo}</label>
     </DialogTitle>
     <DialogContent>
         {
@@ -95,10 +132,10 @@ const ModalBorrar = ({
             <ListItemText primary={selectedItem.nombre} secondary={selectedItem.ingredientes} />
         </ListItem>
         }
+        {child}
     </DialogContent>
     <DialogActions>
-        <Button color='inherit' onClick={cancelar} startIcon={<CloseSharp />} >Cancelar</Button>
-        <Button color='secondary' onClick={BorrarPorID} variant='outlined' startIcon={<Delete/>} >Aceptar</Button>
+        {botonesAccion}
     </DialogActions>
 </Dialog>);
 
