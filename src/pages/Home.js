@@ -17,7 +17,7 @@ const HomePage = () =>{
 
     return (<LayoutApp back={false} title='Accesos de aplicacion.'>
 
-        <List style={{margin:'30px 5px'}}>
+        <List style={{margin:'30px 5px',height:'73%',overflow:'auto'}}>
             <Divider />
             {accesos.map(item=>(<Fragment key={item.pk}>
                 <ListItem button onClick={()=>history.push(item.url)}>
