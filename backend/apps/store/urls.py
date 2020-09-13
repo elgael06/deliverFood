@@ -5,7 +5,13 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    # Productos
     url(r'^products/$', views.item_store_list),
     url(r'^products/(?P<pk>[0-9]+)$', views.item_store_detail),
-    url(r'^clasificaciones/',views.clasificaciones)
+    # Clasificaciones 
+    url(r'^clasificaciones/$',views.clasificaciones),
+    url(r'^clasificaciones/(?P<pk>[0-9]+)$',views.ProductosClasificador),
+    # Clasificaciones productos
+    url(r'^products/(?P<pk>[0-9]+)/clasificaciones/$', views.ClasificadoresProducto),
+    url(r'^products/(?P<pk>[0-9]+)/clasificaciones/(?P<idClase>[0-9]+)$', views.AddClasificadorProducto),
 ]

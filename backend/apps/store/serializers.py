@@ -19,4 +19,4 @@ class OrderStoreSerializer(serializers.ModelSerializer):
 class ClasificacionSer(serializers.ModelSerializer):
     class Meta:
         model = Clasificacion
-        fields = ('pk','name','image','estatus')
+        fields = ('pk','name','image','estatus')  

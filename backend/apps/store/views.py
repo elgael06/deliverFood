@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import ItemStore, Clasificacion
+from .models import ItemStore, Clasificacion,ClasificacionItem
 from . import serializers
 from django.template import loader
 
@@ -94,4 +94,72 @@ def clasificaciones(request):
     # print(ser.data)
     return Response(ser.data)
     
+@api_view(['GET', 'POST'])
+def ProductosClasificador(request,pk):
+    # pylint: disable=maybe-no-member
+    clasific = Clasificacion.objects.get(pk=pk)
+    items = ClasificacionItem.objects.filter(idClase=pk)
+    
+    lista = []
+   
+    for item in items:
+        print(item.pk)
+        producto =  ItemStore.objects.get(pk=item.idItem)
+        # data = serializers.ItemStoreSerializer(producto,context={'request': request},many=True)
+        lista.append({
+            'cantidad':producto.cantidad,
+            'costo':producto.costo,
+            'image':producto.image,
+            'ingredientes':producto.ingredientes,
+            'nombre':producto.nombre,
+            'pk':producto.pk,
+            'preparacion':producto.preparacion,
+            'price':producto.price,
+        })
+   
+    return Response({'data':lista,'clasificacion':clasific.name,'foto':clasific.image})
+
+@api_view(['GET'])
+def ClasificadoresProducto(request,pk):
+    return _obtenerClasificadoresPorProd(request=request,pk=pk)
+   
+@api_view(['POST','DELETE']) 
+def AddClasificadorProducto(request,pk,idClase):
+    print(pk)
+    print(idClase)
         
+    if request.method == 'DELETE':
+    # pylint: disable=maybe-no-member
+        ClasificacionItem.objects.first(idClase=idClase,idItem=pk).delete()
+        print('elimidado...')
+        
+    # pylint: disable=maybe-no-member
+    if request.method == 'POST' and not ClasificacionItem.objects.filter(idClase=idClase,idItem=pk).exists():
+        ClasificacionItem(idClase=idClase,idItem=pk).save()
+        print('guadado...')
+    
+    return _obtenerClasificadoresPorProd(request=request,pk=pk)
+
+
+##Metodos privados
+
+def _obtenerClasificadoresPorProd(request,pk=0):
+    # pylint: disable=maybe-no-member
+    items = ClasificacionItem.objects.filter(idItem=pk).all()
+    producto =  ItemStore.objects.get(pk=pk)
+    
+    lista = []
+    
+    for item in items:
+        print(item.pk)
+        clasific = Clasificacion.objects.get(pk=item.idClase)
+        print(clasific.name)
+        
+        lista.append({            
+            'pk':clasific.pk,
+            'name':clasific.name,
+            'estatus':clasific.estatus,
+            'image':clasific.image,
+        })
+    
+    return Response({'data':lista,'pk':pk,'name':producto.nombre,'img':producto.image})
