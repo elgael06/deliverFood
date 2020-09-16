@@ -12,7 +12,9 @@
   - the front are run in the port 3000.
   - the front run with node/react.
 
-## 
+## Usuario default
+- email: yo@gmail.com
+- passw: 1111
 
 ### This application will be for home delivery of food as its name says. 
 
