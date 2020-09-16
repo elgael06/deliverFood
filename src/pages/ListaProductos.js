@@ -9,6 +9,7 @@ import {Add, Edit, Delete, CloseSharp, ListAltRounded, Check, Search } from '@ma
 import { agregarItemClasificacion, eliminarItemClasificacion, fetchClasificaciones, fetchClasificacionesId } from '../api/clasificaciones';
 
 import Checkbox from '@material-ui/core/Checkbox';
+import ModalGenerica from '../components/modalGenerica';
 
 const ListaProductos =()=>{
     const {list=[]} = useSelector(state=>state.productsStore);
@@ -84,6 +85,7 @@ const ListaProductos =()=>{
         <TextField
             value={filtro}
             onChange={e=>setFiltro(e.target.value)}
+            variant='outlined'
             style={{width:'95%'}}
             placeholder='filtro comida...'
             InputProps={{
@@ -182,31 +184,5 @@ const ModalCategorias = ({
     child={child}
     botonesAccion={<Button color='primary' onClick={aceptar} variant='outlined' startIcon={<Check/>} >Aceptar</Button>}
 />);
-
-const ModalGenerica = ({
-    modal=false,
-    titulo='',
-    selectedItem =null,
-    child=null,
-    botonesAccion = null
-}) =>(<Dialog open={modal}>
-    <DialogTitle> 
-        <label>{titulo}</label>
-    </DialogTitle>
-    <DialogContent>
-        {
-            selectedItem && <ListItem >
-            <ListItemAvatar>
-                <Avatar src={selectedItem.image} />
-            </ListItemAvatar>
-            <ListItemText primary={selectedItem.nombre} secondary={selectedItem.ingredientes} />
-        </ListItem>
-        }
-        {child}
-    </DialogContent>
-    <DialogActions>
-        {botonesAccion}
-    </DialogActions>
-</Dialog>);
 
 export default ListaProductos;

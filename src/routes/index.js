@@ -11,6 +11,7 @@ import Products from "../pages/Producto";
 import HomeApp from '../pages/Home';
 import ErrorPage from "../pages/ErrorPage";
 import AccessControl from "../pages/accessControl";
+import Clasificaciones from "../pages/Clasificaciones";
 
 const Routes = ()=>{
 
@@ -26,6 +27,7 @@ const Routes = ()=>{
             <Route path='/accesoControl' exact component={AccessControl} />
             
             <Route path='/about' exact component={AboutApp} />
+            <Route path='/productCat' exact component={Clasificaciones} />
             <Route path='/*' component={ErrorPage} />
         </Switch>
     </Router>);
