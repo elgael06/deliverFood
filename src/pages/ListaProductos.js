@@ -92,7 +92,7 @@ const ListaProductos =()=>{
                 startAdornment: <InputAdornment position="start"><Search /> </InputAdornment>,
             }}
         />
-       <List style={{height:'70%',overflow:'auto'}}>
+       <List style={{height:'57%',overflow:'auto'}}>
            {list.filter(it=>it.nombre.toUpperCase().includes(filtro.toUpperCase())).map(item=><Fragment key={item.pk}>
                    <ListItem >
                     <ListItemAvatar>

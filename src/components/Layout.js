@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './layout.css';
-import { Button, IconButton } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { Avatar, Button, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeSesion } from '../actions/sesion';
-import { ArrowBack } from '@material-ui/icons';
+import { AccountCircle, ArrowBack, ExitToApp, } from '@material-ui/icons';
+import Fade from '@material-ui/core/Fade';
 
 const LayoutApp = ({back=true,children,title=''})=>{
+    const {nombre='',apeido='' } = useSelector(state=>state.sesion);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [menu,setMenu] = useState(false);
 
     const logOut = ()=>{
         dispatch(removeSesion())
@@ -25,7 +28,27 @@ const LayoutApp = ({back=true,children,title=''})=>{
             </div>
 
         <div className='navbar-rigth'>
-                <Button onClick={logOut}>Logout</Button>
+                <IconButton color='secondary' onClick={()=>setMenu(true)} >
+                    <Avatar>{nombre[0] + apeido[0]}</Avatar>
+                </IconButton>
+                <Menu 
+                    variant='selectedMenu' 
+                    style={{right:16}} 
+                     keepMounted 
+                     TransitionComponent={Fade} 
+                     anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                     open={menu} onClose={()=>setMenu(false)}>
+                    <MenuItem onClick={()=>history.push('/porfile')}> <AccountCircle />{' ' +nombre}</MenuItem>
+                    <MenuItem onClick={logOut}> <ExitToApp />  salir</MenuItem>
+                </Menu>
             </div>
         </nav>
         <div className='section'>

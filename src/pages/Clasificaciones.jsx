@@ -1,11 +1,13 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardMedia, Fab, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, TextField } from '@material-ui/core';
 import { Add, Check, Close, DeleteForever, Edit, Search } from '@material-ui/icons';
 import React, { Fragment, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { fetchClasificaciones } from '../api/clasificaciones';
 import LayoutApp from '../components/Layout'
 import ModalGenerica from '../components/modalGenerica';
 
 const Clasificaciones = ()=>{
+    const dispatch = useDispatch();
     const [state,setState] = useState({
         datos:[],
         activos:[],
@@ -24,12 +26,18 @@ const Clasificaciones = ()=>{
     },[]);
 
     const obtenerClasificadores = async () =>{
+        dispatch(d=>d({
+            type:'LOADING',value:true
+        }));
         const datos = await fetchClasificaciones();
         console.log(datos);
         setState({
             ...state,
             datos,
-        })
+        });
+        dispatch(d=>d({
+            type:'LOADING',value:false
+        }));
     }
 
     const editarCat = item => e =>{
@@ -110,7 +118,7 @@ const Clasificaciones = ()=>{
             })} startIcon={<Close />}>cerrar</Button>}
             child={modal.edit ? <EditarCat item={modal.item} event={saveEdit} /> : <BorrarCat item={modal.item} onBorrar={handleDelete}   />}
         />
-    <div style={{display:'flex',flexDirection:'row-reverse'}}>
+    <div style={{display:'flex',flexDirection:'row-reverse',alignItems:'end'}}>
         <Fab onClick={nuevoCat} color='secondary'  >
             <Add />
         </Fab>
