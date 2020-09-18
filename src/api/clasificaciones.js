@@ -24,5 +24,18 @@ export const agregarItemClasificacion = async (id=0,idClasificacion=0 ) =>{
     return res.data.data;
 }
 
-
+export const eliminarClasificador = async id =>{
+    const res = await axios.delete(`/api/store/clasificaciones/manager/${id}`);
+    return res.status=='204';
+}
+export const actualizarClasificador = async item =>{
+    const res = await axios.put(`/api/store/clasificaciones/manager/${item.pk}`, item);
+    if (res.status==200){
+        return res.data
+    } else return {error:res.data.toString()};
+}
+export const addClasificador = async data =>{
+    const res = await axios.post(`/api/store/clasificaciones/add/`,data);
+    return res.data;
+}
 

@@ -6,8 +6,7 @@ class login:
         self._email     = email
         self._password  = password
     
-    def check(self):
-        
+    def check(self):        
         try:
             print(self._email)
             # pylint: disable=maybe-no-member

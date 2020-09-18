@@ -11,6 +11,8 @@ urlpatterns = [
     # Clasificaciones 
     url(r'^clasificaciones/$',views.clasificaciones),
     url(r'^clasificaciones/(?P<pk>[0-9]+)$',views.ProductosClasificador),
+    url(r'^clasificaciones/add/$',views.addClasificador),
+    url(r'^clasificacion/manager/(?P<pk>[0-9]+)$',views.managerClasificadores),
     # Clasificaciones productos
     url(r'^products/(?P<pk>[0-9]+)/clasificaciones/$', views.ClasificadoresProducto),
     url(r'^products/(?P<pk>[0-9]+)/clasificaciones/(?P<idClase>[0-9]+)$', views.AddClasificadorProducto),

@@ -2,7 +2,7 @@ import { Avatar, Button, Card, CardActions, CardContent, CardMedia, Fab, IconBut
 import { Add, Check, Close, DeleteForever, Edit, Search } from '@material-ui/icons';
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { fetchClasificaciones } from '../api/clasificaciones';
+import { eliminarClasificador, fetchClasificaciones } from '../api/clasificaciones';
 import LayoutApp from '../components/Layout'
 import ModalGenerica from '../components/modalGenerica';
 
@@ -63,12 +63,17 @@ const Clasificaciones = ()=>{
         });
     }
 
-    const handleDelete = () =>{
+    const handleDelete = async () =>{
         console.log('eliminar',modal.item.name);
-        setModal({
-            ...modal,
-            status:false
-        })
+        const res = await eliminarClasificador(modal.item.pk);
+        if (res){
+            setModal({
+                ...modal,
+                status:false
+            })
+        }else{
+            console.log('error al Guardar...');
+        }
     }
     const saveEdit = editItem =>{
         console.log('guardar edicion.',editItem);

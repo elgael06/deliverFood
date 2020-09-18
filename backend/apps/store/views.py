@@ -8,6 +8,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import ItemStore, Clasificacion,ClasificacionItem
 from . import serializers
 from django.template import loader
+from .functions.clasificacion import ClasificacionesManager
+from rest_framework.parsers import JSONParser
 
 # Create your views here.
 
@@ -88,14 +90,10 @@ def item_store_detail(request,pk):
 
 @api_view(['GET', 'POST'])
 def clasificaciones(request):
-    # pylint: disable=maybe-no-member
-    clasific = Clasificacion.objects.all()
-    
-    print(clasific.count)
-    ser = serializers.ClasificacionSer(clasific,context={'request': request},many=True)
-    # print(ser.data)
+    manager = ClasificacionesManager().obtener()
+    ser = serializers.ClasificacionSer(manager,context={'request': request},many=True)
     return Response(ser.data)
-    
+
 @api_view(['GET', 'POST'])
 def ProductosClasificador(request,pk):
     # pylint: disable=maybe-no-member
@@ -123,45 +121,51 @@ def ProductosClasificador(request,pk):
 
 @api_view(['GET'])
 def ClasificadoresProducto(request,pk):
-    return _obtenerClasificadoresPorProd(request=request,pk=pk)
+    manage = ClasificacionesManager()
+    
+    return Response(manage.obtenerClasificadoresPorProd(id=pk)) 
    
 @api_view(['POST','DELETE']) 
 def AddClasificadorProducto(request,pk,idClase):
-    print(pk)
-    print(idClase)
-        
     if request.method == 'DELETE':
     # pylint: disable=maybe-no-member
         ClasificacionItem.objects.get(idClase=idClase,idItem=pk).delete()
-        print('elimidado...')
         
     # pylint: disable=maybe-no-member
     if request.method == 'POST' and not ClasificacionItem.objects.filter(idClase=idClase,idItem=pk).exists():
         ClasificacionItem(idClase=idClase,idItem=pk).save()
-        print('guadado...')
-    
-    return _obtenerClasificadoresPorProd(request=request,pk=pk)
-
-
-##Metodos privados
-
-def _obtenerClasificadoresPorProd(request,pk=0):
-    # pylint: disable=maybe-no-member
-    items = ClasificacionItem.objects.filter(idItem=pk).all()
-    producto =  ItemStore.objects.get(pk=pk)
-    
-    lista = []
-    
-    for item in items:
-        print(item.pk)
-        clasific = Clasificacion.objects.get(pk=item.idClase)
-        print(clasific.name)
         
-        lista.append({            
-            'pk':clasific.pk,
-            'name':clasific.name,
-            'estatus':clasific.estatus,
-            'image':clasific.image,
-        })
+    manager = ClasificacionesManager() 
+    return Response(manager.obtenerClasificadoresPorProd(id=pk))
+
+@api_view(['POST'])
+def addClasificador(request):    
+    data = JSONParser().parse(request)
     
-    return Response({'data':lista,'pk':pk,'name':producto.nombre,'img':producto.image})
+    ser = serializers.ClasificacionSer(data=data)
+    if ser.is_valid:
+        ser.save()
+        return Response(ser.data,status=201)
+    return Response(ser.errors,status=400)
+
+@api_view(['PUT','DELETE'])
+def managerClasificadores(request,pk):
+    print('pk =>',pk)
+    # pylint: disable=maybe-no-member
+    cl = Clasificacion.objects.get(pk=pk)
+    if cl.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'PUT':
+        data = JSONParser().parse(request)
+        ser = serializers.ClasificacionSer(cl,data=data,context={'request': request})
+        
+        if ser.is_valid:
+            ser.save()
+            return Response(ser.data)
+        
+        return Response(ser.errors, status=400)
+
+    elif request.method == 'DELETE':
+        cl.delete()
+        return Response(status=204)
